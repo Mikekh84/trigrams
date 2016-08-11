@@ -8,6 +8,16 @@ GENERATE_SENTENCE_TEST_TABLE = [
     12
 ]
 
+FAKE_DICT = {('A', 'b'): ['y', 'z'],
+    ('Gar', 'bar'): [],
+    ('something', 'Germ'): [],
+    ('Monty', 'python'): []}
+
+FAKE_DICT2 = {('a', 'b'): ['y', 'z'],
+    ('gar', 'bar'): [],
+    ('something', 'germ'): [],
+    ('monty', 'python'): []}
+
 
 def test_pull_in_file():
     """Function tests pull_in_file function with test file."""
@@ -83,7 +93,7 @@ def test_process_file():
 def test_pick_first_two_words():
     """Function tests pick_first_two_words with test data."""
     from trigrams import pick_first_two_words
-    assert pick_first_two_words({(1, 2): 3}) == (1, 2)
+    assert pick_first_two_words({('word', 'b'): 3}) == ('word', 'b')
 
 
 @pytest.mark.parametrize('n', GENERATE_SENTENCE_TEST_TABLE)
@@ -96,3 +106,33 @@ def test_generate_sentence(n):
         ('this', 'is'): ['a']
     }
     assert len(generate_sentence(d, n).split()) == n
+# This area is where Mike is doing some testing.
+
+
+def test_find_and_replace_specials2():
+    """Function tests find_and_replace_specials function with special
+    characters and text but keeping ! ? and periods.
+    """
+    from trigrams import find_and_replace_specials
+    result = find_and_replace_specials('this$has!special?charas.')
+    out = 'this has!special?charas.'
+    assert result == out
+
+
+def test_pick_first_two_words2():
+    """Function tests pick_first_two_words with test data."""
+    from trigrams import pick_first_two_words
+    assert pick_first_two_words({('Word', 'blah'): []}) == ('Word', 'blah')
+
+
+def test_pick_first_two_words3():
+    """Function tests pick_first_two_words correctly gets cap word."""
+    from trigrams import pick_first_two_words
+    test = pick_first_two_words(FAKE_DICT)
+    assert test[0][0].istitle()
+
+
+def test_pick_first_two_words4():
+    """Function tests pick_first_two_words gets words if dict has no caps."""
+    from trigrams import pick_first_two_words
+    assert pick_first_two_words({('word', 'blah'): []}) == ('word', 'blah')

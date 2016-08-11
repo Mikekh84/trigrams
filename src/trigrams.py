@@ -17,9 +17,10 @@ def pull_in_file(filename):
     return content
 
 
+# Slight Edit by Mike. Removed ? and ! from being subbed.
 def find_and_replace_specials(content):
     """Function replaces special characters with whitespace."""
-    return re.sub('[-\\()!@#$%^&*;"<>|/1234567890_=+:]', ' ', content)
+    return re.sub('[-\\()@#$%^&*;"<>|/1234567890_=+:]', ' ', content)
 
 
 def create_tuples(t):
@@ -43,9 +44,14 @@ def process_file(filename):
     return generate_dictionary(create_tuples(s.split()))
 
 
+# Edited by Mike
 def pick_first_two_words(dictionary):
-    """Function picks a random starting place in our dictionary."""
-    return random.choice(list(dictionary))
+    """Function picks random starting word with cap if possible."""
+    for key in dictionary:
+        if key[0][0].istitle():
+            return key
+    else:
+        return random.choice(list(dictionary))
 
 
 def generate_sentence(dictionary, length):
