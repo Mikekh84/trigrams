@@ -8,12 +8,14 @@ GENERATE_SENTENCE_TEST_TABLE = [
     12
 ]
 
-FAKE_DICT = {('A', 'b'): ['y', 'z'],
+FAKE_DICT = {
+    ('A', 'b'): ['y', 'z'],
     ('Gar', 'bar'): [],
     ('something', 'Germ'): [],
     ('Monty', 'python'): []}
 
-FAKE_DICT2 = {('a', 'b'): ['y', 'z'],
+FAKE_DICT2 = {
+    ('a', 'b'): ['y', 'z'],
     ('gar', 'bar'): [],
     ('something', 'germ'): [],
     ('monty', 'python'): []}
@@ -26,9 +28,7 @@ def test_pull_in_file():
 
 
 def test_find_and_replace_specials():
-    """Function tests find_and_replace_specials function with special
-    characters and text.
-    """
+    """Test find_and_replace_specials with special characters and text."""
     from trigrams import find_and_replace_specials
     result = find_and_replace_specials('this *-# has *(#$ special @)# chars')
     out = 'this     has      special     chars'
@@ -110,9 +110,7 @@ def test_generate_sentence(n):
 
 
 def test_find_and_replace_specials2():
-    """Function tests find_and_replace_specials function with special
-    characters and text but keeping ! ? and periods.
-    """
+    """Test find_and_replace_specials with keeping ! ? and periods."""
     from trigrams import find_and_replace_specials
     result = find_and_replace_specials('this$has!special?charas.')
     out = 'this has!special?charas.'
